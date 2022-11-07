@@ -1,0 +1,23 @@
+{
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "name": "devfullstack-projeto-05-node",
+  "description": "Pós-graduações em Tecnologia, Inovação e Negócios Digitais Desenvolvimento Web Full Stack",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ftarganski/DevFullStack-Projeto-05-Node.git"
+  },
+  "author": "Ftarganski",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Ftarganski/DevFullStack-Projeto-05-Node/issues"
+  },
+  "homepage": "https://github.com/Ftarganski/DevFullStack-Projeto-05-Node#readme",
+  "devDependencies": {}
+}
