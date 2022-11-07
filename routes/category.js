@@ -3,27 +3,27 @@ const router = express.Router();
 
 //List all categorys
 router.get("/", async (req, res) => {
-  res.send("rotaCategory");
+  res.send({});
 });
 
 //List one category
-router.get("/:id", async (req, res) => {
-  res.send("rotaCategory");
+router.post("/:id", async (req, res) => {
+  res.send({});
 });
 
-// //Create category
-// router.get("/", async (req, res) => {
-//   res.send("rotaCategory");
-// });
+//Create category
+router.put("/", async (req, res) => {
+  res.send({});
+});
 
-// //Edit category
-// router.get("/:id", async (req, res) => {
-//   res.send("rotaCategory");
-// });
+//Edit category
+router.patch("/:id", async (req, res) => {
+  res.send({});
+});
 
-// //Delete category
-// router.get("/:id", async (req, res) => {
-//   res.send("rotaCategory");
-// });
+//Delete category
+router.delete("/:id", async (req, res) => {
+  res.send({});
+});
 
 module.exports = router;

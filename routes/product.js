@@ -1,29 +1,39 @@
 const express = require("express");
 const router = express.Router();
+const ProductController = require('../controllers/ProductController');
+
+const productCtrl = new ProductController();
 
 //List all products
 router.get("/", async (req, res) => {
-  res.send("rotaProduct");
+  let result = productCtrl.getProducts();
+  res.send(result);
 });
 
-//List one product
 router.get("/:id", async (req, res) => {
-  res.send("rotaProduct");
+  let result = productCtrl.getProducts(req.params.id);
+  res.send(result);
 });
+
+// //List one product
+// router.post("/:id", async (req, res) => {
+//   let result = productCtrl.getProduct();
+//   res.send(result);
+// });
 
 // //Create product
-// router.get("/", async (req, res) => {
-//   res.send("rotaProduct");
+// router.put("/", async (req, res) => {
+//   res.send({});
 // });
 
 // //Edit product
-// router.get("/:id", async (req, res) => {
-//   res.send("rotaProduct");
+// router.patch("/:id", async (req, res) => {
+//   res.send({});
 // });
 
 // //Delete product
-// router.get("/:id", async (req, res) => {
-//   res.send("rotaProduct");
+// router.delete("/:id", async (req, res) => {
+//   res.send({});
 // });
 
 module.exports = router;
