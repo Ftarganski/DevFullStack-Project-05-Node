@@ -5,8 +5,10 @@
   "name": "devfullstack-projeto-05-node",
   "description": "Pós-graduações em Tecnologia, Inovação e Negócios Digitais Desenvolvimento Web Full Stack",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
+    "start": "node server.js",
+    "watch": "nodemon --ext *",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,5 +21,9 @@
     "url": "https://github.com/Ftarganski/DevFullStack-Projeto-05-Node/issues"
   },
   "homepage": "https://github.com/Ftarganski/DevFullStack-Projeto-05-Node#readme",
-  "devDependencies": {}
+  "devDependencies": {
+    "connect-livereload": "^0.6.1",
+    "livereload": "^0.9.3",
+    "nodemon": "^2.0.20"
+  }
 }
