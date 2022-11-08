@@ -1,39 +1,60 @@
 const express = require("express");
 const router = express.Router();
-const ProductController = require('../controllers/ProductController');
+
+const Jwt = require("../utils/Jwt");
+const ProductController = require("../controllers/ProductController");
 
 const productCtrl = new ProductController();
+const jwt = new Jwt();
 
-//List all products
+// RETURN ALL PRODUCTS
 router.get("/", async (req, res) => {
-  let result = productCtrl.getProducts();
-  res.send(result);
+  let result = jwt.verifyToken(req.headers.authorization);
+  if (result.status === 200) {
+    result = await productCtrl.getProducts(req.query);
+  }
+  res.statusCode = result.status;
+  res.send(result.result);
 });
 
+// RETURN ONE PRODUCT
 router.get("/:id", async (req, res) => {
-  let result = productCtrl.getProducts(req.params.id);
-  res.send(result);
+  let result = jwt.verifyToken(req.headers.authorization);
+  if (result.status === 200) {
+    result = await productCtrl.getProduct(req.params.id);
+  }
+  res.statusCode = result.status;
+  res.send(result.result);
 });
 
-// //List one product
-// router.post("/:id", async (req, res) => {
-//   let result = productCtrl.getProduct();
-//   res.send(result);
-// });
+// CREATE PRODUCT
+router.post("/", async (req, res) => {
+  let result = jwt.verifyToken(req.headers.authorization);
+  if (result.status === 200) {
+    result = await productCtrl.createProduct(req.body);
+  }
+  res.statusCode = result.status;
+  res.send(result.result);
+});
 
-// //Create product
-// router.put("/", async (req, res) => {
-//   res.send({});
-// });
+// EDIT PRODUCT
+router.patch("/:id", async (req, res) => {
+  let result = jwt.verifyToken(req.headers.authorization);
+  if (result.status === 200) {
+    result = await productCtrl.updateProduct(req.params.id, req.body);
+  }
+  res.statusCode = result.status;
+  res.send(result.result);
+});
 
-// //Edit product
-// router.patch("/:id", async (req, res) => {
-//   res.send({});
-// });
-
-// //Delete product
-// router.delete("/:id", async (req, res) => {
-//   res.send({});
-// });
+// DELETE PRODUCT
+router.delete("/:id", async (req, res) => {
+  let result = jwt.verifyToken(req.headers.authorization);
+  if (result.status === 200) {
+    result = await productCtrl.deleteProduct(req.params.id, {});
+  }
+  res.statusCode = result.status;
+  res.send(result.result);
+});
 
 module.exports = router;

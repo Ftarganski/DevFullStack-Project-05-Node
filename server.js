@@ -1,22 +1,25 @@
 const express = require("express");
-const path = require("path");
+
 const app = express();
-const port = 3000;
+const db = require("./db.js");
 
-const livereload = require ("livereload");
-const conectLiveReload = require ("connect-livereload");
+require("dotenv").config();
 
-//Rotas
-const user = require('./routes/user');
-const auth = require('./routes/auth');
-const product = require('./routes/product');
-const category = require('./routes/category');
+// ROTAS DO SISTEMA
+const user = require("./routes/user");
+const auth = require("./routes/auth");
+const product = require("./routes/product");
+const category = require("./routes/category");
 
-app.use('/user', user);
-app.use('/auth', auth);
-app.use('/product', product);
-app.use('/category', category);
+app.use(express.json());
 
-app.listen(port, function () {
-  console.log(">>> Aplicação Rodando <<<");
+app.use("/user", user);
+app.use("/auth", auth);
+app.use("/product", product);
+app.use("/category", category);
+
+db.sync(() => console.log(">>>BD RODANDO<<<"));
+
+app.listen(process.env.PORT, function () {
+  console.log(">>>SISTEMA RODANDO<<<");
 });

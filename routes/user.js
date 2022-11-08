@@ -1,46 +1,62 @@
 const express = require("express");
-const UserController = require("../controllers/UserController");
 const router = express.Router();
+
+const Jwt = require("../utils/Jwt");
 const User = require("../controllers/UserController");
 
 const userCtrl = new User();
+const jwt = new Jwt();
 
-//Verbos HTTP
-//GET (recuperar informação do servidor)
-//POST (enviar informação para criar algo no servidor)
-//PUT (editar todas as informações de um dado no servidor)
-//PATCH (editar as informações parciais de um dado no servidor)
-//DELETE (excluir informação do servidor)
-
-
-//List all users
+// RETURN ALL USERS
 router.get("/", async (req, res) => {
-  const result = userCtrl.getUsers();
-  res.send(result);
+  let result = jwt.verifyToken(req.headers.authorization);
+  if (result.status === 200) {
+    result = await userCtrl.getUsers(req.query);
+  }
+  res.statusCode = result.status;
+  res.send(result.result);
 });
 
-//List one user
-router.post("/:id", async (req, res) => {
-  const result = userCtrl.getUser(req.params.id);
-  res.send(result);
+// RETURN ONE USER
+router.get("/:id", async (req, res) => {
+  let result = jwt.verifyToken(req.headers.authorization);
+  if (result.status === 200) {
+    result = await userCtrl.getUser(req.params.id);
+  }
+  res.statusCode = result.status;
+  res.send(result.result);
 });
 
-//Create user
-router.put("/", async (req, res) => {
-  const result = userCtrl.getUsers();
-  res.send(result);
+// CREATE USER
+router.post("/", async (req, res) => {
+  let result = jwt.verifyToken(req.headers.authorization);
+  if (result.status === 200) {
+    result = await userCtrl.createUser(req.body);
+  }
+  res.statusCode = result.status;
+  res.send(result.result);
 });
 
-//Edit user
+// EDIT USER
 router.patch("/:id", async (req, res) => {
-  const result = userCtrl.getUsers();
-  res.send(result);
+  let result = jwt.verifyToken(req.headers.authorization);
+  if (result.status === 200) {
+    result = await userCtrl.updateUser(req.params.id, req.body);
+  }
+
+  res.statusCode = result.status;
+  res.send(result.result);
 });
 
-//Delete user
+// DELETE USER
 router.delete("/:id", async (req, res) => {
-  const result = userCtrl.getUsers();
-  res.send(result);
+  let result = jwt.verifyToken(req.headers.authorization);
+  if (result.status === 200) {
+    result = await userCtrl.deleteUser(req.params.id);
+  }
+
+  res.statusCode = result.status;
+  res.send(result.result);
 });
 
 module.exports = router;

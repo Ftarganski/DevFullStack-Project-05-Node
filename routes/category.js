@@ -1,29 +1,60 @@
 const express = require("express");
 const router = express.Router();
 
-//List all categorys
+const Jwt = require("../utils/Jwt");
+const CategoryController = require("../controllers/CategoryController");
+
+const categoryCtrl = new CategoryController();
+const jwt = new Jwt();
+
+// RETURN ALL CATEGORYS
 router.get("/", async (req, res) => {
-  res.send({});
+  let result = jwt.verifyToken(req.headers.authorization);
+  if (result.status === 200) {
+    result = await categoryCtrl.getCategories(req.query);
+  }
+  res.statusCode = result.status;
+  res.send(result.result);
 });
 
-//List one category
-router.post("/:id", async (req, res) => {
-  res.send({});
+// RETURN ONE CATEGORY
+router.get("/:id", async (req, res) => {
+  let result = jwt.verifyToken(req.headers.authorization);
+  if (result.status === 200) {
+    result = await categoryCtrl.getCategory(req.params.id);
+  }
+  res.statusCode = result.status;
+  res.send(result.result);
 });
 
-//Create category
-router.put("/", async (req, res) => {
-  res.send({});
+// CREATE CATEGORY
+router.post("/", async (req, res) => {
+  let result = jwt.verifyToken(req.headers.authorization);
+  if (result.status === 200) {
+    result = await categoryCtrl.createCategory(req.body);
+  }
+  res.statusCode = result.status;
+  res.send(result.result);
 });
 
-//Edit category
+// EDIT CATEGORY
 router.patch("/:id", async (req, res) => {
-  res.send({});
+  let result = jwt.verifyToken(req.headers.authorization);
+  if (result.status === 200) {
+    result = await categoryCtrl.updateCategory(req.params.id, req.body);
+  }
+  res.statusCode = result.status;
+  res.send(result.result);
 });
 
-//Delete category
+// DELETE CATEGORY
 router.delete("/:id", async (req, res) => {
-  res.send({});
+  let result = jwt.verifyToken(req.headers.authorization);
+  if (result.status === 200) {
+    result = await categoryCtrl.deleteCategory(req.params.id);
+  }
+  res.statusCode = result.status;
+  res.send(result.result);
 });
 
 module.exports = router;
