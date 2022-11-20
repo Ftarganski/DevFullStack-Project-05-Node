@@ -19,3 +19,14 @@ Desenvolver uma API em Express para servir de back-end de um e-commerce. A API d
 *****
 
 Proposta de desenvolvimento:
+
+O trabalho consistiu no desenvolvimento de uma API focada em uma estrutura de e-commerce com programação de models, rotas e controllers para Produto, Categoria, Marca, Usuários e Autenticação no sistema.
+
+No desenvolvimento do projeto foram aplicados conceitos como:
+
+* MVP (model | view | controller)
+* MySQL
+* Sequelize
+* BCrypt JS / Json Web Token
+* DBeaver / Insomnia
+
