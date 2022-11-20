@@ -37,6 +37,10 @@ const Product = db.define("product", {
     type: DataTypes.STRING,
     allowNull: true,
   },
+  brand: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
   quantity: {
     type: DataTypes.FLOAT,
     allowNull: false,
