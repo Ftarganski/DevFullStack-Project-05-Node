@@ -1,3 +1,4 @@
+// const { text } = require("body-parser");
 const Sequelize = require("sequelize");
 require("dotenv").config();
 
@@ -13,3 +14,15 @@ const sequelize = new Sequelize(dbName, dbUser, dbPassword, {
 });
 
 module.exports = sequelize;
+
+// TEST SEQUELIZE
+// const test = async () => {
+//   try {
+//     await sequelize.authenticate();
+//     console.log("Connection has been established successfully.");
+//   } catch (error) {
+//     console.error("Unable to connect to the database:", error);
+//   }
+// };
+
+// test();

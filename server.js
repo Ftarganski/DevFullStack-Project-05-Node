@@ -10,6 +10,7 @@ const user = require("./routes/user");
 const auth = require("./routes/auth");
 const product = require("./routes/product");
 const category = require("./routes/category");
+const brand = require("./routes/brand");
 
 app.use(express.json());
 
@@ -17,6 +18,7 @@ app.use("/user", user);
 app.use("/auth", auth);
 app.use("/product", product);
 app.use("/category", category);
+app.use("/brand", brand);
 
 db.sync(() => console.log(">>>BD RODANDO<<<"));
 
