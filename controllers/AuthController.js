@@ -4,25 +4,25 @@ const Op = Sequelize.Op;
 const bcrypt = require("bcryptjs");
 
 const Mail = require("../utils/Mail");
-const Jwt =  require("../utils/Jwt");
+const Jwt = require("../utils/Jwt");
 
 const GenericController = require("./GenericController.js");
 
-class AuthController extends GenericController{
-  constructor(){
+class AuthController extends GenericController {
+  constructor() {
     super();
     this.mail = new Mail();
     this.jwt = new Jwt();
   }
 
-  async validateEmail(token){
+  async validateEmail(token) {
     let user = User.findOne({
       where: {
         token: token,
       },
     });
 
-    if (user){
+    if (user) {
       await User.update(
         {
           active: true,
@@ -44,18 +44,18 @@ class AuthController extends GenericController{
     };
   }
 
-  async updatePassword(token, newPassword){
+  async updatePassword(token, newPassword) {
     let user = await User.findOne({
       where: {
         token: token,
       },
     });
 
-    if(user){
+    if (user) {
       User.update(
         {
           password: bcrypt.hashSync(newPassword, 10),
-          token: null
+          token: null,
         },
         {
           where: {
@@ -65,30 +65,33 @@ class AuthController extends GenericController{
       );
       return {
         status: 200,
-        result: 'Senha alterada com sucesso'
-      }
+        result: "Senha alterada com sucesso",
+      };
     }
     return {
       status: 404,
-      result: 'Token inválido'
-    }
+      result: "Token inválido",
+    };
   }
 
-  async recoveryPassword(email){
+  async recoveryPassword(email) {
     let user = await User.findOne({
       where: {
         email: email,
       },
     });
-    if(user){
+    if (user) {
       let token = this.generatePin();
-      User.update({
-        token: token
-      }, {
-        where: {
-          email: email
+      User.update(
+        {
+          token: token,
+        },
+        {
+          where: {
+            email: email,
+          },
         }
-      });
+      );
 
       let html = `
                   <h1>Recuperação de senha</h1><br>
@@ -97,19 +100,17 @@ class AuthController extends GenericController{
 
       return {
         status: 200,
-        result: "Solicitação realizada. Em algus instantes você receberá um e-mail.",
+        result:
+          "Solicitação realizada. Em algus instantes você receberá um e-mail.",
       };
     }
-    return{
+    return {
       status: 404,
-      result: "Usuário não encontrado."
-    }
-
-    
+      result: "Usuário não encontrado.",
+    };
   }
 
   async login(userEmail, password) {
-    // TODO: Adicionar verificação de active no login
     const user = await User.findOne({
       where: {
         [Op.or]: {
@@ -121,9 +122,8 @@ class AuthController extends GenericController{
 
     if (user) {
       let passVerify = bcrypt.compareSync(password, user.password);
-      if (passVerify){
-
-        if(user.active){
+      if (passVerify) {
+        if (user.active) {
           let token = this.jwt.generateToken({
             email: user.email,
             username: user.username,
@@ -132,7 +132,7 @@ class AuthController extends GenericController{
 
           return {
             result: {
-              msg: "Usuário logado com sucesso",
+              msg: "Usuário logado com sucesso!",
               token: token,
             },
             status: 200,
@@ -140,11 +140,14 @@ class AuthController extends GenericController{
         }
 
         let token = this.generatePin();
-        User.update({ token: token }, {
-          where: {
-            id: user.id
+        User.update(
+          { token: token },
+          {
+            where: {
+              id: user.id,
+            },
           }
-        });
+        );
 
         let html = `
                   <h1>Confirmação de e-mail</h1><br>
@@ -152,14 +155,14 @@ class AuthController extends GenericController{
         this.mail.sendEmail(user.email, "Validação de e-mail", html);
         return {
           result: {
-            msg: "Usuário desativado, enviamos um e-mail para você ativar sua conta.",
+            msg: "Este usuário ainda não foi ativado. Você receberá um e-mail para ativar a sua conta.",
           },
           status: 401,
         };
       }
     }
     return {
-      result: "Dados inválido.",
+      result: ">>>Dados Inválidos.<<<",
       status: 401,
     };
   }

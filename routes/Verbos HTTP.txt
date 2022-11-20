@@ -1,0 +1,19 @@
+Verbos HTTP
+
+GET - Recupera dados do servidor
+localhost:3000/product (Todos os produtos)
+localhost:3000/product/:id (Produto específico)
+
+POST - Envia dados ao servidor (cria algo novo no servidor)
+localhost:3000/product
+
+PUT - Edita todas as informações de um dado no servidor
+localhost:3000/product/:id
+
+PATCH - Edita parcialmente as informações de um dado no servidor
+localhost:3000/product/:id
+
+DELETE - Exclui um dado específico no servidor
+localhost:3000/product/:id
+
+

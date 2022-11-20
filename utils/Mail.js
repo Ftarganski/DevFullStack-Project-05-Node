@@ -16,7 +16,7 @@ class Mail {
 
   async sendEmail(to, subject, html) {
     let data = {
-      from: "tiago.silva@prof.infnet.edu.br",
+      from: "francis@targanski.com",
       to,
       subject,
       html,

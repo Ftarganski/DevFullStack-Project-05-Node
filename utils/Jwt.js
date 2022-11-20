@@ -18,7 +18,7 @@ class Jwt {
   verifyToken(token) {
     if(token === undefined){
       return {
-        result: "Você precisa passar um token",
+        result: "Você necessita informar um token",
         status: 400
       }
     }
@@ -32,7 +32,7 @@ class Jwt {
     }catch(err){
       if (err.toString() === "TokenExpiredError: jwt expired") {
         return {
-          result: "Token expirado",
+          result: "Seu Token está expirado",
           status: 401,
         };
       } else {

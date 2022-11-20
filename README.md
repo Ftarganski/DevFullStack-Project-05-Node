@@ -14,6 +14,8 @@ Projeto Final da disciplina Node Express do curso de Desenvolvedor Web Full Stac
 
 Demanda do projeto:
 
+Desenvolver uma API em Express para servir de back-end de um e-commerce. A API deverá listar informações de produtos, categorias e usuários de um e-commerce, assim como rota de autenticação.
+
 *****
 
 Proposta de desenvolvimento:
