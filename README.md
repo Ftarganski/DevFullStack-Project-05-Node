@@ -29,4 +29,3 @@ No desenvolvimento do projeto foram aplicados conceitos como:
 * Sequelize
 * BCrypt JS / Json Web Token
 * DBeaver / Insomnia
-
